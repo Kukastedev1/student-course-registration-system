@@ -137,11 +137,12 @@ def main():
             print("Invalid login credentials.")
 
 """
+
 Exit
 
 """
         elif choice == "3":
-            print("Existing system...")
+            print("Exiting system...")
             break
 
         else:
