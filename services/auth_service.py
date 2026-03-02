@@ -44,6 +44,6 @@ class AuthService:
 
         for user in users:
             if user.username == username and user.check_password(password):
-                return "Login successful!"
+                return user
 
         return "Invalid username or password!"

@@ -1,8 +1,44 @@
 [
     {
-        "course_id": 101,
-        "title": "Python Programming",
-        "description": "Learn Python basics",
+        "course_id": "CS101",
+        "title": "Computer Science Fundamentals",
+        "description": "Introduction to computing, programming basics, and problem solving.",
+        "students": []
+    },
+    {
+        "course_id": "DS201",
+        "title": "Data Science",
+        "description": "Data analysis, visualization, and introductory machine learning.",
+        "students": []
+    },
+    {
+        "course_id": "SE301",
+        "title": "Software Engineering",
+        "description": "Software development lifecycle, design patterns, and team development.",
+        "students": []
+    },
+    {
+        "course_id": "NE302",
+        "title": "Network Engineering",
+        "description": "Network design, routing, switching, and infrastructure management.",
+        "students": []
+    },
+    {
+        "course_id": "DB303",
+        "title": "Database Administration",
+        "description": "Database design, SQL, performance tuning, and database security.",
+        "students": []
+    },
+    {
+        "course_id": "CY304",
+        "title": "Cybersecurity",
+        "description": "Security principles, ethical hacking, and system protection.",
+        "students": []
+    },
+    {
+        "course_id": "DV305",
+        "title": "DevOps Engineering",
+        "description": "CI/CD pipelines, containerization, cloud deployment, and automation.",
         "students": []
     }
 ]

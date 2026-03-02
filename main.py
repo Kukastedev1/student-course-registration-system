@@ -1,40 +1,33 @@
 """
 Main Program
-
 CLI Menu System
-
 """
 
-from services.auth_service import login, register
-from models.student import add_student, get_all_students
-from models.course import add_course, get_all_courses
-from models.enrolment import enroll_student, get_student_courses
+from services.auth_service import AuthService
+from models.student import Student
+from models.course import Course
+from models.enrolment import Enrollment
 
 """
 Main Menu
-
 """
-
 def main_menu():
     print("\n==== Student Course Registration System ====")
     print("1. Register")
     print("2. Login")
     print("3. Exit")
 
+
 """
 System menu after login
-
 """
-
 def system_menu():
     print("\n==== System Menu ====")
-    print("1. Add Student")
-    print("2. Add Course")
-    print("3. Enroll Student")
-    print("4. View Student Courses")
-    print("5. View All Students")
-    print("6. View All Courses")
-    print("7. Logout")
+    print("1. Enroll Course")
+    print("2. Drop Course")
+    print("3. View Student Courses")
+    print("4. View Available Courses")
+    print("5. Logout")
 
 
 def main():
@@ -44,104 +37,99 @@ def main():
         main_menu()
 
         choice = input("Select option: ")
+
+        # REGISTER
         if choice == "1":
 
             username = input("Enter username: ")
             password = input("Enter password: ")
-            role = input("Enter role(admin/student): ")
 
-            register(username, password, role)
+            message = AuthService.register(username, password)
+            print(message)
 
-            print("User registered successfully.")
-
-        elif choice == "2"
+        # LOGIN
+        elif choice == "2":
 
             username = input("Username: ")
             password = input("Password: ")
 
-            user = login(username, password)
-            
+            user = AuthService.login(username, password)
+           
             if user:
-                print(f"\nWelcome{user['username']}!")
-                
-                # System menu loop
+
+                print(f"\nWelcome {user.username}!")
+
+                # SYSTEM MENU LOOP
                 while True:
 
-                    system _menu()
+                    system_menu()
+
                     option = input("Choose option: ")
-                
-                # Add Student
-                if option == "1":
 
-                    name = input("Student name: ")
+                    # Enroll Course
+                    if option == "1":
 
-                    add_student(name)
+                        course_id = input("Course ID: ")
+                        student_id = input("Student ID: ")
+                        Enrollment.enrol_student(student_id, course_id)
 
-                    print("Student added successfully.")
+                        print("Course added successfully.")
 
-                # Add Course
-                elif option == "2":
+                    # Drop Course
+                    elif option == "2":
 
-                    course_name = input("Course name: ")
-                    
-                    add_course(course_name)
+                        course_id = input("Course ID: ")
+                        student_id = input("Student ID: ")
+                        Enrollment.drop_course(student_id, course_id)
+                        
+                        print("Course dropped successfully.")
 
-                    print("Course added successfully.")
+                    # View Student Courses
+                    elif option == "3":
 
-                # Enroll Student
-                elif option == "3":
+                        student_id = input("Student ID: ")
+                        courses = Enrollment.get_courses_for_student(student_id)
 
-                    student_id = int(input("Student ID: "))
-                    course_id = int(input("Course ID: "))
+                        if courses:
+                            print("\nCourses for this student:")
+                            for course in courses:
+                                print(course)
 
-                    enroll_student(student_id, course_id)
+                        else:
+                            print("No courses found for this student.")
 
-                    print("Student enrolled successfully.")
-                
-                # View Student Courses
-                elif option == "4":
 
-                    student_id = int(input("Student ID: "))
-                    courses = get_student_courses(student_id)
+                    # View Available Courses
+                    elif option == "4":
 
-                    print("Courses for this student:")
-                    for c in courses:
-                        print(c)
+                        courses = Course.get_all_courses()
 
-                # View All Students
-                elif option == "5"
+                        if not courses:
+                            print("No courses available.")
 
-                    students = get_all_students()
+                        else:
+                            print("\nAvailable Courses:")
 
-                    for s in students:
-                        print(s)
+                            for c in courses:
+                                print(f"{c['course_id']} - {c['title']} | {c['description']}")
+                     
 
-                # View All Courses
-                elif option == "6"
+                    # Logout
+                    elif option == "5":
 
-                    courses = get_all_courses()
+                        print("Logging out...")
+                        break
 
-                    for c in courses:
-                        print(c)
+                    else:
+                        print("Invalid option.")
 
-                # Logout
-                elif option == "7"
+            else:
+                print("Invalid login credentials.")
 
-                    print("Logging out...")
-                    break
-
-                else:
-                    print("Invalid option.")
-
-        else:
-            print("Invalid login credentials.")
-
-"""
-Exit
-
-"""
+        # EXIT
         elif choice == "3":
-            print("Existing system...")
+
+            print("Exiting system...")
             break
 
         else:
@@ -149,6 +137,5 @@ Exit
 
 
 # Run Program
-if __name__ = "__main__"
+if __name__ == "__main__":
     main()
-

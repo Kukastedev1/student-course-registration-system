@@ -1,34 +1,4 @@
-"""
 
-This file manages the relationship between Students and Courses.
-Data will be stored in:
-data/enrollments.json
-
-1. Create an Enrollment class
-
-2. Implement a function to enroll a student in a course
-   Steps:
-- Load enrollments.json
-- Create a new enrollment record
-- Append it to the list
-- Save back to enrollments.json
-
-3. Implement a function to get courses for a student
-  Steps:
-- Load enrollments.json
-- Find all records with matching student_id
-- Return the course_ids
-
-4. Implement a function to get students in a course
-  Steps:
-- Load enrollments.json
-- Find all records with matching course_id
-- Return the student_ids
-
-Do not create students or courses here.
-Students and Courses are handled by Albert.
-
-"""
 import json
 import os
 
@@ -80,6 +50,19 @@ class Enrollment:
         enrollments.append(new_entry)
         Enrollment.save_enrollments(enrollments)
         print(f"Success: Enrolled student {student_id} into course {course_id}.")
+    
+    @staticmethod
+    def drop_course(student_id, course_id):
+
+        enrollments = Enrollment.load_enrollments()
+
+        enrollments = [
+        e for e in enrollments
+        if not (e["student_id"] == student_id and e["course_id"] == course_id)
+        ]
+
+        Enrollment.save_enrollments(enrollments)
+        print(f"Student {student_id} dropped from course {course_id}")
 
     @staticmethod
     def get_courses_for_student(student_id):
