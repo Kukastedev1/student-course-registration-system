@@ -1,16 +1,5 @@
 [
-    {
-        "student_id": "S101",
-        "course_id": "PYTHON_BASICS"
-    },
-    {
-        "student_id": "1",
-        "course_id": "SE301"
-    },
-    {
-        "student_id": "3",
-        "course_id": "cs101"
-    },
+   
     {
         "student_id": "ST001",
         "course_id": "CS101"
