@@ -1,8 +1,26 @@
 [
     {
-        "student_id": 1,
+        "student_id": "SDFT001",
+        "name": "Engine Kukaste",
+        "email": "engine@gmail.com",
+        "courses": []
+    },
+    {
+        "student_id": "SDFT002",
         "name": "Albert Mochama",
-        "email": "albert@example.com",
+        "email": "albert@gmail.com",
+        "courses": []
+    },
+    {
+        "student_id": "SDFT003",
+        "name": "Athanas Mochama",
+        "email": "athanas@gmail.com",
+        "courses": []
+    },
+    {
+        "student_id": "SDFT004",
+        "name": "Kimberly Ayiaki",
+        "email": "kimberly@gmail.com",
         "courses": []
     }
 ]
