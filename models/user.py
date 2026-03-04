@@ -2,6 +2,12 @@ import hashlib
 
 
 class User:
+    def __init__(self, username, password, role="student", cleared=False):
+        self.username = username
+        self.password = password
+        self.role = role
+        self.cleared = cleared
+
     def __init__(self, user_id, username, password):
         self.id = user_id
         self.username = username
@@ -16,13 +22,14 @@ class User:
 
     def to_dict(self):
         return {
-            "id": self.id,
             "username": self.username,
-            "password": self.__password
+            "password": self.password,
+            "role": self.role,
+            "cleared": self.cleared
         }
 
     @staticmethod
     def from_dict(data):
-        user = User(data["id"], data["username"], data["password"])
+        user = User(data["username"], data["password"], data["role"], data["cleared"])
         user._User__password = data["password"]
         return user
