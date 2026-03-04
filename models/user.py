@@ -7,10 +7,9 @@ class User:
         self.username = username
         self.role = role
         self.cleared = cleared
-        self.__password = self.__hash_password(password)
+        self.__password = self._hash_password(password)
 
-    # Encapsulation: private password
-    def __hash_password(self, password):
+    def _hash_password(self, password):
         return hashlib.sha256(password.encode()).hexdigest()
 
     def check_password(self, password):
@@ -25,14 +24,15 @@ class User:
             "cleared": self.cleared
         }
 
-    @classmethod
-    def from_dict(cls, data):
-        user = cls(
-            data["id"],
-            data["username"],
-            "",                          # placeholder — we set the hash directly below
+    @staticmethod
+    def from_dict(data):
+        user = User(
+            data.get("id"),
+            data.get("username"),
+            data.get("password"),
             data.get("role", "student"),
             data.get("cleared", False)
         )
-        user._User__password = data["password"]  # restore stored hash directly
+        # Prevent re-hashing password
+        user._User__password = data.get("password")
         return user
