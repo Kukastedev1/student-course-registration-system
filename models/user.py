@@ -2,9 +2,11 @@ import hashlib
 
 
 class User:
-    def __init__(self, user_id, username, password):
+    def __init__(self, user_id, username, password, role="student", cleared=False):
         self.id = user_id
         self.username = username
+        self.role = role
+        self.cleared = cleared
         self.__password = self.__hash_password(password)
 
     # Encapsulation: private password
@@ -18,11 +20,19 @@ class User:
         return {
             "id": self.id,
             "username": self.username,
-            "password": self.__password
+            "password": self.__password,
+            "role": self.role,
+            "cleared": self.cleared
         }
 
-    @staticmethod
-    def from_dict(data):
-        user = User(data["id"], data["username"], data["password"])
-        user._User__password = data["password"]
+    @classmethod
+    def from_dict(cls, data):
+        user = cls(
+            data["id"],
+            data["username"],
+            "",                          # placeholder — we set the hash directly below
+            data.get("role", "student"),
+            data.get("cleared", False)
+        )
+        user._User__password = data["password"]  # restore stored hash directly
         return user

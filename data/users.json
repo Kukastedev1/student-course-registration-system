@@ -1,17 +1,30 @@
 [
     {
         "id": 1,
-        "username": "Engine",
-        "password": "fe1df949f41269dce673c9a6c647da064efd7771a9f837539aa6d03deda5fd29"
+        "username": "Albert",
+        "password": "hashed_password_here",
+        "role": "student",
+        "cleared": true
     },
     {
         "id": 2,
-        "username": "Albert",
-        "password": "c01e8956837489cae7af969f6859adec400727b86c194671e64197c52dfd26f1"
+        "username": "Engine",
+        "password": "hashed_password_here",
+        "role": "student",
+        "cleared": true
     },
     {
         "id": 3,
-        "username": "Melvin",
-        "password": "4d8f5a95d189a978c8a29c88cee32dbd87468a6cb839c32057931dccfbd0b6dd"
+        "username": "Josh",
+        "password": "b5d4045c3f466fa91fe2cc6abe79232a1a57cdf104f7a26e716e0a1e2789df78",
+        "role": "student",
+        "cleared": false
+    },
+    {
+        "id": 4,
+        "username": "Ronaldo",
+        "password": "774e797343ecca2d15f4055c809c7f3449c391cf2580f704e6c7abcaf9fdf765",
+        "role": "student",
+        "cleared": true
     }
 ]
