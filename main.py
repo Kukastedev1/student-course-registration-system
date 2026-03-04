@@ -4,7 +4,6 @@ CLI Menu System with Admin Clearance
 """
 
 from services.auth_service import AuthService
-from models.student import Student
 from models.course import Course
 from models.enrolment import Enrollment
 
@@ -32,6 +31,15 @@ def admin_menu():
     print("2. Logout")
 
 
+def display_courses(courses):
+    if courses:
+        print("\nAvailable Courses:")
+        for c in courses:
+            print(f"  {c['course_id']} - {c['title']} | {c['description']}")
+    else:
+        print("No courses available.")
+
+
 def main():
     while True:
         main_menu()
@@ -52,18 +60,12 @@ def main():
             user = AuthService.login(username, password)
 
             if isinstance(user, str):
-                # Either error or not cleared
                 print(user)
             else:
-                # Successful login
                 print(f"\nWelcome {user.username}!")
 
                 # Automatically show available courses after login
-                courses = Course.get_all_courses()
-                if courses:
-                    print("\nAvailable Courses:")
-                    for c in courses:
-                        print(f"{c['course_id']} - {c['title']} | {c['description']}")
+                display_courses(Course.get_all_courses())
 
                 # SYSTEM MENU LOOP
                 while True:
@@ -77,36 +79,39 @@ def main():
                         else:
                             course_id = input("Course ID: ")
                             student_id = input("Student ID: ")
-                            Enrollment.enrol_student(student_id, course_id)
-                            print("Course added successfully.")
+                            try:
+                                Enrollment.enrol_student(student_id, course_id)
+                                print("Course added successfully.")
+                            except Exception as e:
+                                print(f"Enrollment failed: {e}")
 
                     # Drop Course
                     elif option == "2":
                         course_id = input("Course ID: ")
                         student_id = input("Student ID: ")
-                        Enrollment.drop_course(student_id, course_id)
-                        print("Course dropped successfully.")
+                        try:
+                            Enrollment.drop_course(student_id, course_id)
+                            print("Course dropped successfully.")
+                        except Exception as e:
+                            print(f"Drop failed: {e}")
 
                     # View Student Courses
                     elif option == "3":
                         student_id = input("Student ID: ")
-                        courses = Enrollment.get_courses_for_student(student_id)
-                        if courses:
-                            print("\nCourses for this student:")
-                            for course in courses:
-                                print(course)
-                        else:
-                            print("No courses found for this student.")
+                        try:
+                            student_courses = Enrollment.get_courses_for_student(student_id)
+                            if student_courses:
+                                print("\nCourses for this student:")
+                                for course in student_courses:
+                                    print(f"  {course}")
+                            else:
+                                print("No courses found for this student.")
+                        except Exception as e:
+                            print(f"Could not retrieve courses: {e}")
 
                     # View Available Courses
                     elif option == "4":
-                        courses = Course.get_all_courses()
-                        if not courses:
-                            print("No courses available.")
-                        else:
-                            print("\nAvailable Courses:")
-                            for c in courses:
-                                print(f"{c['course_id']} - {c['title']} | {c['description']}")
+                        display_courses(Course.get_all_courses())
 
                     # Logout
                     elif option == "5":
@@ -118,7 +123,6 @@ def main():
 
         # ADMIN LOGIN
         elif choice == "3":
-            # Simple admin login (hardcoded for now)
             admin_pass = input("Enter admin password: ")
             if admin_pass != "admin123":
                 print("Incorrect admin password!")
