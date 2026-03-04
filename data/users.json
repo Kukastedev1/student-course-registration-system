@@ -5,5 +5,12 @@
         "password": "c01e8956837489cae7af969f6859adec400727b86c194671e64197c52dfd26f1",
         "role": "student",
         "cleared": true
+    },
+    {
+        "id": 2,
+        "username": "Kimberly",
+        "password": "cf07092cff836e0f3d1ba9f656355ca38a633c78bf2d6a8cfd98d148693f6b41",
+        "role": "student",
+        "cleared": true
     }
 ]
